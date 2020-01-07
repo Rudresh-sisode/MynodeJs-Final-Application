@@ -4,6 +4,7 @@ const app=express();
 const fs=require('fs')
 var db=require('./db')
 var user=require('./model/user')
+var advertizs=require('./model/advertize')
 const port=process.env.PORT || 8008;
 const sgMail=require('@sendgrid/mail')
 app.set('view engine','ejs')
@@ -98,6 +99,33 @@ app.post('/registeradmin',(req,res)=>{
 
     
 
+})
+app.post('/addadvertise',(req,res)=>{
+    console.log(req.body);
+    var userCollection=new advertizs()//ORM Mapped with schema or model
+    
+    if(req.body.email==undefined){
+        res.json({"status":500,"message":"Title is required"})
+    }
+    userCollection.title=req.body.email;
+    userCollection.description=req.body.decrip;
+    userCollection.url=req.body.myurl;
+    userCollection.urltoimage=req.body.imageurl;
+    userCollection.publish=req.body.publish;
+
+    userCollection.save((err,result)=>{
+        if(err){
+            console.log("error while registering")
+            res.json({"status":500,"message":"error ocured bos"})
+        }
+        else{
+            res.json(result)
+        }
+
+    })
+
+
+   
 })
 
 
