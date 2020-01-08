@@ -125,6 +125,8 @@
         </div>
     </br>
     <div class="container">
+      <!--<a href="/updateandshow" class="btn btn-success">Update News</a>-->
+      <button class="btn btn-success" onclick="mongodb_find()">UpdateNews</button>
 
         <div class="row">
             <div class="col-md-4" id="col-1">
@@ -173,6 +175,23 @@ function openForm() {
 
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
+}
+
+function mongodb_find(){
+  console.log('ok boss')
+ /* var MongoClient =require('mongodb').MongoClient;
+  var url="mongodb://localhost:27017/nodeapp";
+
+  MongoClient.connect(url,function(err,db){
+    if(err) throw err;
+    var dbo=db.db('nodeapp');
+    db.collection('advertizements').find({}).toArray(function(err,result){
+      if(err)throw err;
+      console.log(result);
+      db.close();
+    });
+
+  });*/
 }
 </script>
         

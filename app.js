@@ -4,6 +4,8 @@ const app=express();
 const fs=require('fs')
 var db=require('./db')
 var user=require('./model/user')
+var MongoClient =require('mongodb').MongoClient;
+var url="mongodb://localhost:27017/";
 var advertizs=require('./model/advertize')
 const port=process.env.PORT || 8008;
 const sgMail=require('@sendgrid/mail')
@@ -29,6 +31,27 @@ app.get('/sports',(req,res)=>{
 
 app.get('/adminlog',(req,res)=>{
     res.render('register')
+})
+
+app.get('/updateandshow',(req,res)=>{
+    console.log("boss news updated")
+
+
+    function mongodb_find(){
+        console.log('ok boss')
+       
+      
+        MongoClient.connect(url,function(err,db){
+          if(err) throw err;
+          var db=db.db('nodeapp');
+          db.collection('advertizements').find({}).toArray(function(err,result){
+            if(err)throw err;
+            console.log(result);
+            db.close();
+          });
+      
+        });
+      }
 })
 
 
@@ -127,6 +150,7 @@ app.post('/addadvertise',(req,res)=>{
 
    
 })
+
 
 
 
