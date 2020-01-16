@@ -10,6 +10,25 @@ MongoClient.connect(url,(err,db)=>{
     }
     else{
         console.log("DB connected successfully");
-       var collection=db.collection('advertizements');
+       var collection=db.collection('advertizements').find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+        });
     }
-},{ useNewUrlParser: true});
+});
+
+/*
+
+collection.find(function(error,data){
+            if(error){
+                console.log("error while connecting to the logiuser table");
+            }
+            else{
+                console.log("data received from the loginusers collection");
+                console.log(data);
+
+            }
+         
+        })
+*/
